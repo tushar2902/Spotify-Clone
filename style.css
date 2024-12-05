@@ -23,6 +23,13 @@ nav ul{
 
 nav ul li{
     padding: 0 12px;
+    a:visited {
+      color: inherit; 
+  }
+}
+nav ul li a {
+  text-decoration: none;  
+  color: inherit;          
 }
 
 .brand img{
@@ -166,4 +173,18 @@ nav ul li{
       padding: 8px;
     }
   }
-  
+ 
+  p{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 2rem;
+    font-family: "Varela Round", sans-serif;
+    margin-top: 10px;
+  }
+  .about{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 10px auto;
+  }
