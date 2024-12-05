@@ -11,7 +11,7 @@ let songItems = Array.from(document.getElementsByClassName("songItem"));
 
 let songs = [
   {
-    songName: "Warriyo - Mortals",
+    songName: "Har Har Gange",
     filePath: "songs/1.mp3",
     coverPath: "covers/1.jpg",
   },
@@ -21,12 +21,12 @@ let songs = [
     coverPath: "covers/2.jpg",
   },
   {
-    songName: "DEAF KEV - Invinsible",
+    songName: "Cartoon - On & On ",
     filePath: "songs/3.mp3",
     coverPath: "covers/3.jpg",
   },
   {
-    songName: "Different Heaven & EH!DE",
+    songName: "Shree Krishna Govind Hare Murari",
     filePath: "songs/4.mp3",
     coverPath: "covers/4.jpg",
   },
@@ -36,27 +36,27 @@ let songs = [
     coverPath: "covers/5.jpg",
   },
   {
-    songName: "Rabba - Salam-e-Ishq",
+    songName: "Aazaadiyan - Udaan",
     filePath: "songs/6.mp3",
     coverPath: "covers/6.jpg",
   },
   {
-    songName: "ahdbhj -Salam-e-Ishq",
+    songName: "Dosti - RRR",
     filePath: "songs/7.mp3",
     coverPath: "covers/7.jpg",
   },
   {
-    songName: "thgrj- Salam-e-Ishq",
+    songName: "The Nights",
     filePath: "songs/8.mp3",
     coverPath: "covers/8.jpg",
   },
   {
-    songName: "nvhuif- Salam-e-Ishq",
+    songName: "Bandeya Re Bandeya",
     filePath: "songs/9.mp3",
     coverPath: "covers/9.jpg",
   },
   {
-    songName: "nvhuif- Salam-e-Ishq",
+    songName: "Electromenia - Sky High",
     filePath: "songs/9.mp3",
     coverPath: "covers/10.jpg",
   },
@@ -74,11 +74,17 @@ masterPlay.addEventListener("click", () => {
     masterPlay.classList.remove("fa-circle-play");
     masterPlay.classList.add("fa-circle-pause");
     gif.style.opacity = 1;
+
+    document.getElementById(songIndex).classList.remove("fa-circle-play");
+    document.getElementById(songIndex).classList.add("fa-circle-pause");
   } else {
     audioElement.pause();
     masterPlay.classList.remove("fa-circle-pause");
     masterPlay.classList.add("fa-circle-play");
     gif.style.opacity = 0;
+    makeAllPlays();
+    document.getElementById(songIndex).classList.remove("fa-circle-pause");
+    document.getElementById(songIndex).classList.add("fa-circle-play");
   }
 });
 // Listen to Events
@@ -108,21 +114,33 @@ const makeAllPlays = () => {
     }
   );
 };
+
+// Updated song item click listener
 Array.from(document.getElementsByClassName("songItemPlay")).forEach(
   (element) => {
     element.addEventListener("click", (e) => {
-      console.log(e.target);
-      makeAllPlays();
-      songIndex = parseInt(e.target.id);
-      e.target.classList.remove("fa-circle-play");
-      e.target.classList.add("fa-circle-pause");
-      audioElement.src = `songs/${songIndex + 1}.mp3`;
-      masterSongName.innerText = songs[songIndex].songName;
-      audioElement.currentTime = 0;
-      audioElement.play();
-      gif.style.opacity = 1;
-      masterPlay.classList.remove("fa-circle-play");
-      masterPlay.classList.add("fa-circle-pause");
+      const clickedIndex = parseInt(e.target.id);
+      // Toggle play/pause if the same song is clicked again
+      if (songIndex === clickedIndex && !audioElement.paused) {
+        audioElement.pause();
+        e.target.classList.remove("fa-circle-pause");
+        e.target.classList.add("fa-circle-play");
+        masterPlay.classList.remove("fa-circle-pause");
+        masterPlay.classList.add("fa-circle-play");
+        gif.style.opacity = 0;
+      } else {
+        makeAllPlays();
+        songIndex = clickedIndex;
+        e.target.classList.remove("fa-circle-play");
+        e.target.classList.add("fa-circle-pause");
+        audioElement.src = `songs/${songIndex + 1}.mp3`;
+        masterSongName.innerText = songs[songIndex].songName;
+        audioElement.currentTime = 0;
+        audioElement.play();
+        gif.style.opacity = 1;
+        masterPlay.classList.remove("fa-circle-play");
+        masterPlay.classList.add("fa-circle-pause");
+      }
     });
   }
 );
