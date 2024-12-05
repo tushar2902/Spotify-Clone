@@ -16,7 +16,7 @@ let songs = [
     coverPath: "covers/1.jpg",
   },
   {
-    songName: "Cielo - Huma-Huma",
+    songName: "Har Gully Mein Dhoni Hai ",
     filePath: "songs/2.mp3",
     coverPath: "covers/2.jpg",
   },
